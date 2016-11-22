@@ -12,7 +12,8 @@ app.controller('myCtrl',function($scope)
 	$scope.products=[];
 	$scope.correctResult=[];
 	$scope.result=[];
-	//$scope.errorShow=false;
+	$scope.errorShow=false;
+	$scope.qid=1;
 
 /****************Array-Of-Object(JSON)********************/
 	$scope.create=function()
@@ -36,7 +37,7 @@ app.controller('myCtrl',function($scope)
 
 		if(!$scope.answer){return;}
 		if($scope.products.indexOf($scope.answer)==-1){
-			//$scope.errorShow=false;
+			$scope.errorShow=false;
 			$scope.products.push($scope.answer);
 			$scope.correctResult.push({
 				res:false
@@ -45,7 +46,7 @@ app.controller('myCtrl',function($scope)
 		}
 		else
 		{
-			//$scope.errorShow=true;
+			$scope.errorShow=true;
 			$scope.errorText="Answer is already in the list";
 		}
 
@@ -90,13 +91,13 @@ app.controller('myCtrl',function($scope)
 					return ans;
 				}
 			});
-			alert(a);
 			if(a.indexOf($scope.answer)==-1){
-				alert("hello");
+				$scope.errorShow=false;
 				$scope.products[getEditable()]=$scope.answer;
 			}
 			else
 			{
+					$scope.errorShow=true;
 					$scope.errorText="Answer is already in the list1";
 			}
 				

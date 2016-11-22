@@ -18,7 +18,7 @@
               <div ng-show="ishidden">
 
       			      <div class="col-md-12"><br>
-              				  Question-Id:<input type="text" ng-model="qid" name="qid"size="5" required><br><br>
+              				  Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
               					Question:<br><br>
                         <textarea row="4" cols="70" placeholder="Enter the question" name="ques" ng-model="ques" required></textarea><br><br><br>
 
@@ -76,10 +76,10 @@
                               <div>{{toggleResult()}}</div>
                 </div>
 
-              	<h4 >{{errorText}}<h4><br>
+              	<h4 ng-show="errorShow">{{errorText}}<h4><br>
               	
                 <button ng-click="ishidden=false">Cancel</button>
-               <button ng-click="create()" ng-disabled="myForm.qid.$invalid || myForm.ques.$invalid || myForm.answer.$invalid || '(products.length<2) '">Create</button>
+               <button ng-click="create()" ng-disabled="myForm.ques.$invalid || (products.length<2) ">Create</button>
 
     </form>
 </div><br>
