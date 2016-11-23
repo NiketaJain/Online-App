@@ -13,7 +13,8 @@
   <div class="container"><br><br>
 	     <button id="button1" ng-click="ishidden=true">Create New Question:</button><br>
 
-        
+<!--*******************Online Quiz Form*********************-->     
+  
 	       <form  name="myForm" id="form1" >
               <div ng-show="ishidden">
       			      <div class="col-md-12"><br>
@@ -31,12 +32,12 @@
       	     			</div>
       	     			<div  ng-show="editAnswershow"  >
                  			<input type="text" ng-model="answer" ng-show="editAnswershow" name="answer"required>
-                 			<button ng-click="add()" ng-disabled="myForm.answer.$invalid" >Edit Answer</button>
+                 			<button ng-click="update()" ng-disabled="myForm.answer.$invalid" >Edit Answer</button>
                       <button ng-click="cancel()"ng-disabled="myForm.answer.$invalid" >Cancel</button><br><br>
            			  </div>
               </div>
   				
-<!--------Answer List Display in Table Foramt******************-->	       
+<!--*********************Answer List Display in Table Foramt******************-->	       
 
                 <div ng-hide="products.length==0">			
                   	<table border="1" >
@@ -66,23 +67,35 @@
                 </div>
 
               	<h4 ng-show="errorShow">{{errorText}}<h4><br>
-                <button ng-click="ishidden=false">Cancel</button>
-                <button ng-click="create()" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
+                <button ng-click="Reset_Form()">Cancel</button>
+                <button ng-click="createQ_list()" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
     </form>
 </div><br>
 <p>{{Question_list|json}}<p>
 
-<!--<table border=1>
-  <tr>
-    <th>Question_Id</th>
-    <th>Question</th>
-    <th>AnswerType</th>
-    <th>Result<th>
-  </tr>
-  <tr>
-  </tr>
-</table>
--->
+<!--***************************Display Question-List in Table Format**********************-->
+
+<div ng-show="Queslist">
+  <table border=1>
+    <tr>
+      <th>Question_Id</th>
+      <th>Question</th>
+      <th>AnswerType</th>
+      <th>AnswerKey</th>
+      <th>Result</th>
+      <th>Update</th>
+      <th>Delete</th>
+    </tr>
+    <tr ng-repeat="Q_List in Question_list">
+      <td>{{Q_List.Question_Id}}</td>
+      <td>{{Q_List.Question}}</td>
+      <td>{{Q_List.Answer_Type}}</td>
+      <td>{{Q_List.Answer_key}}</td>
+      <td>{{Q_List.Answer_Selected_Checkbox}}</td> 
+      
+    </tr>
+  </table>
+</div>
 
 <script src="main.js">
 </script>

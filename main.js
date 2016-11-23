@@ -3,7 +3,7 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope)
 {
-	$scope.data={};
+	
 	var tempEdit=0;
 	$scope.selectItem=0;
 	$scope.Question_list=[];
@@ -13,22 +13,40 @@ app.controller('myCtrl',function($scope)
 	$scope.correctResult=[];
 	$scope.result=[];
 	$scope.errorShow=false;
-	$scope.qid=1;
-
-/****************Array-Of-Object(JSON)********************/
-	$scope.create=function()
-	{
+	$scope.counter=1;
+	$scope.qid=$scope.counter;
 	
-		$scope.data.Question_Id=$scope.qid;
-		$scope.data.Question=$scope.ques;
-		$scope.data.Answer_Type=$scope.answerType;
-		$scope.data.Answer_key=$scope.products;
-		$scope.data.Answer_Selected_Checkbox=$scope.storeResult();
-		$scope.data.Answer_Selected_Radio=$scope.toggleResult();
-		$scope.Question_list.push($scope.data);
+	
+/****************Array-Of-Object(JSON)********************/
+	$scope.createQ_list=function()
+	{
+		var data={}
+		data.Question_Id=$scope.qid;
+		data.Question=$scope.ques;
+		data.Answer_Type=$scope.answerType;
+		data.Answer_key=$scope.products;
+		data.Answer_Selected_Checkbox=$scope.storeResult();
+		data.Answer_Selected_Radio=$scope.toggleResult();
+		$scope.Question_list.push(data);
+		$scope.Queslist=true;
+		$scope.counter=$scope.counter+1;
+		$scope.qid=$scope.counter;
+		$scope.Reset_Form();
+		$scope.ishidden=false;
 
-		
 	};
+
+
+/*******************Reset-Form****************************/
+$scope.Reset_Form=function()
+{
+	$scope.ques=" ";
+	$scope.answerType='radio';
+	$scope.answer=" ";
+	$scope.products=[];
+	$scope.Queslist=true;
+
+} 
 	
 /***************Add-Answer*****************************/
 
@@ -79,9 +97,7 @@ app.controller('myCtrl',function($scope)
 		return tempEdit;
 	}
 	
-
-
-	$scope.add=function()
+	$scope.update=function()
 	{
 		
 			var a=$scope.products.filter(function(ans)
@@ -114,6 +130,7 @@ app.controller('myCtrl',function($scope)
 		$scope.addAnswerHide=false;
 		$scope.editAnswershow=false;
 		$scope.answer="";
+		ishidden=false;
 	
 	}
 
@@ -154,6 +171,9 @@ app.controller('myCtrl',function($scope)
 
 
 	}
+
+
+/******************Click-On-Create-New-Question-Button******************/
 });
 
  
