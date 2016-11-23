@@ -58,12 +58,13 @@
                               <input type="checkbox" name="multi1" ng-model="correctResult[$index].res" >
                           </td> 
                           <td ng-hide="showtype">
-                              <input type="radio" name="result" ng-model="$parent.selectItem" required>
+                              <input type="radio" name="result" ng-model="$parent.selectItem" value="{{$index+1}}" required>
                           </td> 
                         </tr>
                     </table>
+                             <h4 ng-show="error1">{{ErrorText1}}<h4><br>
                               <div>{{storeResult()}}</div>
-                              <div>{{toggleResult()}}</div>
+                              <div>{{selectItem}}</div>
                 </div>
 
               	<h4 ng-show="errorShow">{{errorText}}<h4><br>
@@ -91,8 +92,9 @@
       <td>{{Q_List.Question}}</td>
       <td>{{Q_List.Answer_Type}}</td>
       <td>{{Q_List.Answer_key}}</td>
-      <td>{{Q_List.Answer_Selected_Checkbox}}</td> 
-      
+      <td>{{selectedResult(Q_List.Answer_Selected_Checkbox,Q_List.Answer_Selected_Radio)}}</td> 
+      <td></td>
+      <td></td>      
     </tr>
   </table>
 </div>
