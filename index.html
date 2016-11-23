@@ -11,48 +11,52 @@
   </head>
 <body ng-controller="myCtrl">
   <div class="container"><br><br>
-	     <button id="button1" ng-click="ishidden=true">Create New Question:</button><br>
+       <button id="button1" ng-click="ishidden=true">Create New Question:</button><br>
 
 <!--*******************Online Quiz Form*********************-->     
   
-	       <form  name="myForm" id="form1" >
+         <form  name="myForm" id="form1" >
               <div ng-show="ishidden">
-      			      <div class="col-md-12"><br>
-              				  Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
-              					Question:<br><br>
+                  <div class="col-md-12"><br>
+                        Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
+                        Question:<br><br>
                         <textarea row="4" cols="70" placeholder="Enter the question" name="ques" ng-model="ques" required></textarea><br><br><br>
-      					  Answer(s):<br>
+                  Answer(s):<br>
                   <div ng-click="result1(answerType)">
-              				<input type="radio"  ng-model="answerType" name="answerType" value="checkbox">Multipunch<br>
-                   		<input type="radio"  ng-model="answerType" name="answerType" value="radio">Singlepunch<br><br>
+                      <input type="radio"  ng-model="answerType" name="answerType" value="checkbox">Multipunch<br>
+                      <input type="radio"  ng-model="answerType" name="answerType" value="radio">Singlepunch<br><br>
                   </div>
-           			  <div ng-hide="addAnswerHide">
-          	     			<input type="text" ng-model="answer"  name="answer"required>
-          	     			<button ng-disabled="myForm.answer.$invalid"ng-click="addItem()" >Add Answer</button><br><br>
-      	     			</div>
-      	     			<div  ng-show="editAnswershow"  >
-                 			<input type="text" ng-model="answer" ng-show="editAnswershow" name="answer"required>
-                 			<button ng-click="update()" ng-disabled="myForm.answer.$invalid" >Edit Answer</button>
+                  <div ng-hide="addAnswerHide">
+                      <input type="text" ng-model="answer"  name="answer"required>
+                      <button ng-disabled="myForm.answer.$invalid"ng-click="addItem()" >Add Answer</button><br><br>
+                  </div>
+                 <!-- <div  ng-show="editAnswershow"  >
+                      <input type="text" ng-model="answer" ng-show="editAnswershow" name="answer"required>
+                      <button ng-click="update()" ng-disabled="myForm.answer.$invalid" >Edit Answer</button>
                       <button ng-click="cancel()"ng-disabled="myForm.answer.$invalid" >Cancel</button><br><br>
-           			  </div>
+                  </div>-->
               </div>
-  				
-<!--*********************Answer List Display in Table Foramt******************-->	       
+          
+<!--*********************Answer List Display in Table Foramt******************-->        
 
-                <div ng-hide="products.length==0">			
-                  	<table border="1" >
-                       	<tr>
+                <div ng-hide="products.length==0">      
+                    <table border="1" >
+                        <tr>
                           <th>Id</th>
                           <th>Answer</th>
                           <th>Edit</th>
                           <th>Delete</th>
-                          <th>Selected Answer</th>	   			
-                       	</tr>
-                       	<tr ng-repeat="x in products">
-                         	<td>{{$index+1}}</td>
-                         	<td>{{x}}</td>
-                         	<td><button ng-click="edit($index)" >Edit</button></td>
-                         	<td><button ng-disabled="editAnswershow" ng-click="removeItem($index)" >Delete</button></td>
+                          <th>Selected Answer</th>          
+                        </tr>
+                        <tr ng-repeat="x in products">
+                          <td>{{$index+1}}</td>
+                          <td><span ng-show="answerShow($index)" >{{x}}</span>
+                            <span  ng-hide="answerShow($index)"><input type="text" ng-model="x"></span></td>
+                          <td><span ng-show="answerShow($index)"><button ng-click="edit($index)" >Edit</button></span>
+                              <span ng-hide="answerShow($index)"><button ng-click="update($index,x)">Update</button></span>
+
+                          </td>
+                          <td><button ng-disabled="editAnswershow" ng-click="removeItem($index)" >Delete</button></td>
                           <!-- <td><input type="{{answerType}}" name="multi1" ng-model="keys[$index]" ng-change="select(keys[$index],$index)" ng-value="true">{{keys[$index]}}</td> -->
                           <td ng-show="showtype">
                               <input type="checkbox" name="multi1" ng-model="correctResult[$index].res" >
@@ -67,7 +71,7 @@
                               <div>{{selectItem}}</div>
                 </div>
 
-              	<h4 ng-show="errorShow">{{errorText}}<h4><br>
+                <h4 ng-show="errorShow">{{errorText}}<h4><br>
                 <button ng-click="Reset_Form()">Cancel</button>
                 <button ng-click="createQ_list()" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
     </form>
@@ -93,7 +97,7 @@
       <td>{{Q_List.Answer_Type}}</td>
       <td>{{Q_List.Answer_key}}</td>
       <td>{{selectedResult(Q_List.Answer_Selected_Checkbox,Q_List.Answer_Selected_Radio)}}</td> 
-      <td></td>
+      <td><button ng-click="DeleteQList($index)" >Delete</button></td>
       <td></td>      
     </tr>
   </table>

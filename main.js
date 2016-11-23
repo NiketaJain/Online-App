@@ -17,6 +17,9 @@ app.controller('myCtrl',function($scope)
 	$scope.qid=$scope.counter;
 	$scope.error1=false;
 	$scope.selectItem=$scope.products[0];
+	$scope.selected1=undefined;
+
+	
 	
 /****************Array-Of-Object(JSON)********************/
 	$scope.createQ_list=function()
@@ -58,8 +61,6 @@ $scope.Reset_Form=function()
 	{
 
 		if(!$scope.answer){return;}
-
-		
 		if($scope.products.indexOf($scope.answer)==-1){
 			$scope.errorShow=false;
 			$scope.products.push($scope.answer);
@@ -93,38 +94,33 @@ $scope.Reset_Form=function()
 		$scope.products.splice(x,1);
 	}
 
+
 /**********Edit-Answer*******************/
 
 	$scope.edit=function(x)
 	{
-		$scope.addAnswerHide=true;
-		$scope.editAnswershow=true;
-		$scope.answer=$scope.products[x];
-       setEditable(x);
-
-
-	}
-	function setEditable(id){
-		tempEdit=id;
 		
-	}
-	function getEditable(){
-		return tempEdit;
+		$scope.selected1=x;
+
 	}
 	
-	$scope.update=function()
+	
+	$scope.update=function(index,x)
 	{
-		
+		var value=$scope.products[index];
 			var a=$scope.products.filter(function(ans)
 			{
-				if(ans!==$scope.products[getEditable()])
+				if(ans!==value)
 				{
+
 					return ans;
 				}
+
 			});
-			if(a.indexOf($scope.answer)==-1){
+			if(a.indexOf(x)==-1){
 				$scope.errorShow=false;
-				$scope.products[getEditable()]=$scope.answer;
+				$scope.products[index]=x;
+				$scope.selected1=undefined;
 			}
 			else
 			{
@@ -133,10 +129,25 @@ $scope.Reset_Form=function()
 			}
 				
 			$scope.answer="";
-			$scope.editAnswershow=false;
-			$scope.addAnswerHide=false;
+		
 
+			
 	}		
+
+$scope.answerShow=function(index)
+{
+	if(index===$scope.selected1)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+	
+
+	
+}
 
 /************Cancel-button********************/
 
@@ -196,6 +207,13 @@ $scope.selectedResult=function(Answer_Selected_Checkbox,Answer_Selected_Radio)
 		return Answer_Selected_Radio;
 	}
 }	
+
+/************Delete-Question*********************/
+
+$scope.DeleteQList=function(x)
+{
+	$scope.Question_list.splice(x,1);
+}
 
 
 });
