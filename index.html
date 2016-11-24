@@ -30,9 +30,11 @@
        
         
           <div class="createNew">
-            <button id="button1" ng-click="ishidden=true">Create New Question:</button><br>
-         
-        </div><!--/.nav-collapse -->
+            <button id="button1" ng-click="ishidden=true" ng-show="createbutton">Create New Question:</button><br>
+            <button id="button1" ng-click="ishidden=true" ng-hide="createbutton">Update New Question:</button><br>
+          </div><!--/.nav-collapse -->
+
+           
       </div>
     </div>
   </div>
@@ -49,10 +51,10 @@
                         Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
                         Question:<br><br>
                         <textarea row="4" cols="70" placeholder="Enter the question" name="ques" ng-model="ques" required></textarea><br><br><br>
-                  Answer(s):<br>
+                  Answer Type:<br>
                   <div ng-click="result1(answerType)">
-                      <input type="radio"  ng-model="answerType" name="answerType" value="checkbox">Multipunch<br>
-                      <input type="radio"  ng-model="answerType" name="answerType" value="radio">Singlepunch<br><br>
+                      <input type="radio"  ng-model="answerType" name="answerType" value="MultiPunch">Multipunch<br>
+                      <input type="radio"  ng-model="answerType" name="answerType" value="SinglePunch">Singlepunch<br><br>
                   </div>
                   <div ng-hide="addAnswerHide">
                       <input type="text" ng-model="answer"  name="answer"required>
@@ -67,7 +69,8 @@
           
 <!--*********************Answer List Display in Table Foramt******************-->        
 
-                <div ng-hide="products.length==0">      
+                <div ng-hide="products.length==0">  
+                <h4>Answer(s) List</h4>    
                     <table border="1" >
                         <tr>
                           <th>Id</th>
@@ -79,9 +82,9 @@
                         <tr ng-repeat="x in products">
                           <td>{{$index+1}}</td>
                           <td><span ng-show="answerShow($index)" >{{x}}</span>
-                            <span  ng-hide="answerShow($index)"><input type="text" ng-model="x"></span></td>
+                            <span  ng-hide="answerShow($index)"><input type="text" ng-model="x" required></span></td>
                           <td><span ng-show="answerShow($index)"><button ng-click="edit($index)" >Edit</button></span>
-                              <span ng-hide="answerShow($index)"><button ng-click="update($index,x)">Update</button></span>
+                              <span ng-hide="answerShow($index)"><button ng-click="update($index,x)" ng-disabled="myForm.x.$invalid">Update</button></span>
 
                           </td>
                           <td><button ng-disabled="editAnswershow" ng-click="removeItem($index)" >Delete</button></td>
@@ -94,21 +97,24 @@
                           </td> 
                         </tr>
                     </table>
-                             <h4 ng-show="error1">{{ErrorText1}}<h4><br>
+                             <h5 ng-show="error1">{{ErrorText1}}<h5><br>
                              <!-- <div>{{storeResult()}}</div>
                               <div>{{selectItem}}</div> -->
                 </div>
 
-                <h4 ng-show="errorShow">{{errorText}}<h4><br>
-                <button ng-click="Reset_Form()">Cancel</button>
-                <button ng-click="createQ_list()" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
+                <h5 ng-show="errorShow">{{errorText}}<h5><br>
+                <button ng-click="Reset_Form()" ng-disabled="false" ng-show="cancelcreate">Cancel</button>
+                 <button ng-click="cancelList()" ng-disabled="false" ng-hide="cancelcreate">Cancel</button>
+                <button ng-click="createQ_list()" ng-show="updatebutton" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
+                <button ng-click="updateList(qid)" ng-hide="updatebutton" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Update</button>
     </form>
 </div><br>
 <!--<p>{{Question_list|json}}<p>-->
 
 <!--***************************Display Question-List in Table Format**********************-->
-
 <div ng-show="Queslist">
+  <h4>Question List</h4>
+
   <table border=1>
     <tr>
       <th>Question_Id</th>
@@ -125,7 +131,7 @@
       <td>{{Q_List.Answer_Type}}</td>
       <td>{{Q_List.Answer_key}}</td>
       <td>{{selectedResult(Q_List.Answer_Selected_Checkbox,Q_List.Answer_Selected_Radio)}}</td>
-       <td><button ng-click="UpdateQList($index)" >Update</button></td>  
+       <td><button ng-click="EditQList($index)">Edit</button></td>  
       <td><button ng-click="DeleteQList($index)" >Delete</button></td>
           
     </tr>

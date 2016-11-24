@@ -5,9 +5,9 @@ app.controller('myCtrl',function($scope)
 {
 	
 	var tempEdit=0;
-	
+	$scope.listdata={};
 	$scope.Question_list=[];
-	$scope.answerType='radio';
+	$scope.answerType='SinglePunch';
 	$scope.ishidden=false;
 	$scope.products=[];
 	$scope.correctResult=[];
@@ -18,7 +18,9 @@ app.controller('myCtrl',function($scope)
 	$scope.error1=false;
 	$scope.selectItem=$scope.products[0];
 	$scope.selected1=undefined;
-
+	$scope.createbutton=true;
+	$scope.updatebutton=true;
+	$scope.cancelcreate=true;
 	
 	
 /****************Array-Of-Object(JSON)********************/
@@ -45,14 +47,13 @@ app.controller('myCtrl',function($scope)
 $scope.Reset_Form=function()
 {
 	$scope.ques="";
-	$scope.answerType='radio';
+	$scope.answerType='SinglePunch';
 	$scope.answer="";
 	$scope.products=[];
 	$scope.Queslist=true;
-	angular.forEach($scope.correctResult,function(ans,ind){
-				ans.res=false;
-			});
-
+	$scope.correctResult=[];
+	$scope.result=[];
+	
 } 
 	
 /***************Add-Answer*****************************/
@@ -151,12 +152,16 @@ $scope.answerShow=function(index)
 
 /************Cancel-button********************/
 
-	$scope.cancel=function()
+	$scope.cancelList=function()
 	{
 		$scope.addAnswerHide=false;
 		$scope.editAnswershow=false;
 		$scope.answer="";
-		ishidden=false;
+		//ishidden=false;
+		$scope.createbutton=true;
+		$scope.updatebutton=true;
+		$scope.qid=$scope.counter;
+		$scope.Reset_Form();
 	
 	}
 
@@ -164,13 +169,13 @@ $scope.answerShow=function(index)
 
 	$scope.result1=function(value)
 	{
-		if(value=="checkbox")
+		if(value=="MultiPunch")
 		{
 			$scope.showtype=true;
 			$scope.selectItem="";
 
 		}
-		if(value=="radio")
+		if(value=="SinglePunch")
 		{
 			$scope.showtype=false;
 			angular.forEach($scope.correctResult,function(ans,ind){
@@ -215,7 +220,59 @@ $scope.DeleteQList=function(x)
 	$scope.Question_list.splice(x,1);
 }
 
+/******************Edit-Question-List********************/
+
+$scope.EditQList=function(x)
+{
+	$scope.createbutton=false;
+	$scope.updatebutton=false;
+	$scope.cancelcreate=false;
+	$scope.qid=$scope.Question_list[x].Question_Id;
+	$scope.ques=$scope.Question_list[x].Question;
+	$scope.answerType=$scope.Question_list[x].Answer_Type;
+	$scope.products=angular.copy($scope.Question_list[x].Answer_key);
+	if($scope.Question_list[x].answerType=="MultiPunch")
+	{
+			var checkbox=$scope.Question_list[x].Answer_Selected_Checkbox;
+
+			$scope.showtype=true;
+			angular.forEach(checkbox,function(ans,ind){
+				$scope.correctResult[ans-1].res=true;
+			});
+			$scope.selectItem="";
+	}
+	if($scope.Question_list[x].answerType=="SinglePunch")
+		{
+			$scope.showtype=false;
+			$scope.selectItem=$scope.Question_list[x].Answer_Selected_Radio;
+			
+
+		}
+
+	$scope.listdata=$scope.Question_list[x];
+	
+}
+
+/************Update-Question-List************************/
+
+
+$scope.updateList=function(Objid)
+{
+	if(Objid===$scope.listdata.Question_Id)
+	{
+		
+		$scope.listdata.Question_Id=$scope.qid;
+		$scope.listdata.Question=$scope.ques;
+		$scope.listdata.Answer_Type=$scope.answerType;
+		$scope.listdata.Answer_key=$scope.products;
+		$scope.listdata.Answer_Selected_Checkbox=$scope.storeResult();
+		$scope.listdata.Answer_Selected_Radio=$scope.selectItem;
+
+	}
+}
 
 });
+
+
 
  
