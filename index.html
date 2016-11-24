@@ -11,7 +11,35 @@
   </head>
 <body ng-controller="myCtrl">
   <div class="container"><br><br>
-       <button id="button1" ng-click="ishidden=true">Create New Question:</button><br>
+    <header>
+          <h2 class="oq-heading">Online Quiz</h2>
+    </header>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="sidebar-nav">
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="visible-xs navbar-brand">Sidebar menu</span>
+        </div>
+       
+        
+          <div class="createNew">
+            <button id="button1" ng-click="ishidden=true">Create New Question:</button><br>
+         
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <div ng-view class="col-sm-4 view-content">
+  </div>
+</div>
+       
 
 <!--*******************Online Quiz Form*********************-->     
   
@@ -67,8 +95,8 @@
                         </tr>
                     </table>
                              <h4 ng-show="error1">{{ErrorText1}}<h4><br>
-                              <div>{{storeResult()}}</div>
-                              <div>{{selectItem}}</div>
+                             <!-- <div>{{storeResult()}}</div>
+                              <div>{{selectItem}}</div> -->
                 </div>
 
                 <h4 ng-show="errorShow">{{errorText}}<h4><br>
@@ -76,7 +104,7 @@
                 <button ng-click="createQ_list()" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
     </form>
 </div><br>
-<p>{{Question_list|json}}<p>
+<!--<p>{{Question_list|json}}<p>-->
 
 <!--***************************Display Question-List in Table Format**********************-->
 
@@ -101,7 +129,7 @@
       <td><button ng-click="DeleteQList($index)" >Delete</button></td>
           
     </tr>
-  </table><br><br><br>
+  </table>
 </div>
 
 <script src="main.js">
