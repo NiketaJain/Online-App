@@ -96,11 +96,12 @@
       <td>{{Q_List.Question}}</td>
       <td>{{Q_List.Answer_Type}}</td>
       <td>{{Q_List.Answer_key}}</td>
-      <td>{{selectedResult(Q_List.Answer_Selected_Checkbox,Q_List.Answer_Selected_Radio)}}</td> 
+      <td>{{selectedResult(Q_List.Answer_Selected_Checkbox,Q_List.Answer_Selected_Radio)}}</td>
+       <td><button ng-click="UpdateQList($index)" >Update</button></td>  
       <td><button ng-click="DeleteQList($index)" >Delete</button></td>
-      <td></td>      
+          
     </tr>
-  </table>
+  </table><br><br><br>
 </div>
 
 <script src="main.js">
