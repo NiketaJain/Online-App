@@ -112,7 +112,7 @@ $scope.Reset_Form=function()
 				$scope.error1=false;
 		}
 
-		
+		$scope.answer="";
 	}
 
 /**************Delete-Answer*****************/

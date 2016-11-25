@@ -5,7 +5,7 @@ table {
 }
 
 th, td {
-    text-align: left;
+    text-align: center;
     padding: 8px;
 }
 
@@ -33,6 +33,7 @@ header{
   background-color: #008CBA;
   text-align: center;
   text-decoration: block;
+ 
   box-shadow: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 
 }
