@@ -25,13 +25,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="visible-xs navbar-brand">Sidebar menu</span>
+          <span class="visible-xs navbar-brand"></span>
         </div>
        
         
           <div class="createNew">
-            <button id="button1" ng-click="ishidden=true" ng-show="createbutton">Create New Question:</button><br>
-            <button id="button1" ng-click="ishidden=true" ng-hide="createbutton">Update New Question:</button><br>
+            <button id="button1" ng-click="createNewQ()" ng-show="createbutton">Create New Question:</button><br>
+            <button id="button1" ng-click="createNewQ()" ng-hide="createbutton">Update New Question:</button><br>
           </div><!--/.nav-collapse -->
 
            
@@ -84,10 +84,10 @@
                           <td><span ng-show="answerShow($index)" >{{x}}</span>
                             <span  ng-hide="answerShow($index)"><input type="text" ng-model="x" name="x" required></span></td>
                           <td><span ng-show="answerShow($index)"><button ng-click="edit($index)" >Edit</button></span>
-                              <span ng-hide="answerShow($index)"><button id="updatebutton"ng-click="update($index,x)" ng-disabled="myForm.x.$invalid">Update</button></span>
+                              <span ng-hide="answerShow($index)"><button id="updatebutton" ng-click="update($index,x)" ng-disabled="x==null">Update</button></span>
 
                           </td>
-                          <td><button ng-disabled="editAnswershow" ng-click="removeItem($index)" >Delete</button></td>
+                          <td><button id="deleteButton" ng-disabled="editAnswershow" ng-click="removeItem($index)" >Delete</button></td>
                           <!-- <td><input type="{{answerType}}" name="multi1" ng-model="keys[$index]" ng-change="select(keys[$index],$index)" ng-value="true">{{keys[$index]}}</td> -->
                           <td ng-show="showtype">
                               <input type="checkbox" name="multi1" ng-model="correctResult[$index].res" >
