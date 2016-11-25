@@ -115,8 +115,7 @@ $scope.Reset_Form=function()
 	{
 		
 		$scope.selected1=x;
-		document.getElementById('deleteButton').disabled=true;
-
+		
 	}
 	
 	

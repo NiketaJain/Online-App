@@ -50,7 +50,9 @@
                   <div class="col-md-12"><br>
                         Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
                         Question:<br><br>
-                        <textarea row="4" cols="70" placeholder="Enter the question" name="ques" ng-model="ques" required></textarea><br><br><br>
+                        <textarea row="4" cols="70" placeholder="Enter the question" name="ques" ng-model="ques" required></textarea>
+                          <span ng-show="myForm.ques.$invalid" style="color:red">Please enter something!</span>
+                        <br><br><br>
                   Answer Type:<br>
                   <div ng-click="result1(answerType)">
                       <input type="radio"  ng-model="answerType" name="answerType" value="MultiPunch">Multipunch<br>
@@ -87,7 +89,7 @@
                               <span ng-hide="answerShow($index)"><button id="updatebutton" ng-click="update($index,x)" ng-disabled="x==null">Update</button></span>
 
                           </td>
-                          <td><button id="deleteButton" ng-disabled="editAnswershow" ng-click="removeItem($index)" >Delete</button></td>
+                          <td><button  ng-click="removeItem($index)" >Delete</button></td>
                           <!-- <td><input type="{{answerType}}" name="multi1" ng-model="keys[$index]" ng-change="select(keys[$index],$index)" ng-value="true">{{keys[$index]}}</td> -->
                           <td ng-show="showtype">
                               <input type="checkbox" name="multi1" ng-model="correctResult[$index].res" >
@@ -97,20 +99,20 @@
                           </td> 
                         </tr>
                     </table>
-                             <h5 ng-show="error1">{{ErrorText1}}<h5><br>
+                             <h5 ng-show="error1" style="color:red">{{ErrorText1}}<h5><br>
                              <!-- <div>{{storeResult()}}</div>
                               <div>{{selectItem}}</div> -->
                 </div>
 
-                <h5 ng-show="errorShow">{{errorText}}<h5><br>
+                <h5 ng-show="errorShow"  style="color:red">{{errorText}}<h5><br>
                 <button ng-click="Reset_Form()" ng-disabled="false" ng-show="cancelcreate">Cancel</button>
                  <button ng-click="cancelList()" ng-disabled="false" ng-hide="cancelcreate">Cancel</button>
                 <button ng-click="createQ_list()" ng-show="updatebutton" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Create</button>
                 <button ng-click="updateList(qid)" ng-hide="updatebutton" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Update</button>
     </form>
 </div><br>
-<p>{{Question_list|json}}<p>
-
+<!--<p>{{Question_list|json}}<p>
+-->
 <!--***************************Display Question-List in Table Format**********************-->
 <div ng-show="Queslist">
   <h4>Question List</h4>
