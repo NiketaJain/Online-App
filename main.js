@@ -21,6 +21,8 @@ app.controller('myCtrl',function($scope)
 	$scope.createbutton=true;
 	$scope.updatebutton=true;
 	$scope.cancelcreate=true;
+	$scope.deleteDisabled=false;
+	$scope.editDisabled=false;
 	
 	
 /****************Array-Of-Object(JSON)********************/
@@ -79,7 +81,8 @@ $scope.Reset_Form=function()
 			$scope.errorShow=false;
 			$scope.products.push($scope.answer);
 			$scope.correctResult.push({
-				res:false
+				res:false,
+				isDelete:false
 			});
 			$scope.result.push($scope.products.indexOf($scope.answer));
 		}
@@ -111,11 +114,28 @@ $scope.Reset_Form=function()
 
 /**********Edit-Answer*******************/
 
-	$scope.edit=function(x)
+	$scope.edit=function(x,value)
 	{
 		
 		$scope.selected1=x;
-		
+		var val=$scope.products[x];
+		$scope.correctResult[x].isDelete=true;
+		var a=$scope.products.filter(function(ans)
+		{
+			if(ans!==val)
+			{
+				return ans;
+			}
+		});
+		if(a.indexOf(value)===x)
+		{
+			$scope.editDisabled=false;
+		}
+		else
+		{
+			$scope.editDisabled=true;
+		}
+
 	}
 	
 	
@@ -135,6 +155,8 @@ $scope.Reset_Form=function()
 				$scope.errorShow=false;
 				$scope.products[index]=x;
 				$scope.selected1=undefined;
+				$scope.correctResult[index].isDelete=false;
+				$scope.editDisabled=false;
 			}
 			else
 			{
