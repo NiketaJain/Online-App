@@ -49,7 +49,8 @@
          <form  name="myForm" id="form1" >
               <div ng-show="ishidden">
                   <div class="col-md-12"><br>
-                        Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
+                       Question-Id:<input type="text" ng-model="qid" name="qid"size="5" ng-disabled="true"><br><br>
+                      
                         Question:<br><br>
                         <textarea row="4" cols="70" placeholder="Enter the question" name="ques" ng-model="ques" required></textarea>
                          <h5> <span ng-show="myForm.ques.$invalid" >Please enter something!</span></h5>
@@ -63,11 +64,6 @@
                       <input type="text" ng-model="answer"  name="answer"required>
                       <button ng-disabled="myForm.answer.$invalid"ng-click="addItem()" >Add Answer</button><br><br>
                   </div>
-                 <!-- <div  ng-show="editAnswershow"  >
-                      <input type="text" ng-model="answer" ng-show="editAnswershow" name="answer"required>
-                      <button ng-click="update()" ng-disabled="myForm.answer.$invalid" >Edit Answer</button>
-                      <button ng-click="cancel()"ng-disabled="myForm.answer.$invalid" >Cancel</button><br><br>
-                  </div>-->
               </div>
           
 <!--*********************Answer List Display in Table Foramt******************-->        
@@ -91,7 +87,6 @@
 
                           </td>
                           <td><button  ng-disabled="correctResult[$index].isDelete" ng-click="removeItem($index)" >Delete</button></td>
-                          <!-- <td><input type="{{answerType}}" name="multi1" ng-model="keys[$index]" ng-change="select(keys[$index],$index)" ng-value="true">{{keys[$index]}}</td> -->
                           <td ng-show="showtype">
                               <input type="checkbox" name="multi1" ng-model="correctResult[$index].res" >
                           </td> 
@@ -115,7 +110,7 @@
 <!--<p>{{Question_list|json}}<p>
 -->
 <!--***************************Display Question-List in Table Format**********************-->
-<div ng-show="Queslist">
+<div ng-show="$storage.Question_list.length>0">
   <h4>Question List</h4>
 
   <table border=1>
@@ -128,7 +123,7 @@
       <th>Update</th>
       <th>Delete</th>
     </tr>
-    <tr ng-repeat="Q_List in Question_list">
+    <tr ng-repeat="Q_List in $storage.Question_list">
       <td>{{Q_List.Question_Id}}</td>
       <td>{{Q_List.Question}}</td>
       <td>{{Q_List.Answer_Type}}</td>
@@ -140,7 +135,6 @@
     </tr>
   </table>
 </div>
-
 <script src="main.js">
 </script>
 </body>
