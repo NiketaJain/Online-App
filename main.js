@@ -23,6 +23,7 @@ app.controller('myCtrl',['$scope','$localStorage',function($scope, $localStorage
 	$scope.qid=$localStorage.counter;
 	$scope.error1=false;
 	$scope.selectItem=$scope.products[0];
+	$scope.previousButton=false;
 	$scope.selected1=undefined;
 	$scope.createbutton=true;
 	$scope.updatebutton=true;
@@ -30,7 +31,8 @@ app.controller('myCtrl',['$scope','$localStorage',function($scope, $localStorage
 	$scope.deleteDisabled=false;
 	$scope.editDisabled=false;
 	$scope.nextshow=true;
-	// $scope.checkshow=true;	
+
+	
 	
 
 
@@ -366,6 +368,9 @@ $scope.createNewQ=function()
 /*****************************User-View************************/
 $scope.viewData=$localStorage.Question_list;
 $scope.index=0;
+$scope.count=0;
+$scope.storeData=[];
+$scope.selectedItemResult=[];
 
 $scope.next=function(index)
 {
@@ -374,23 +379,33 @@ $scope.next=function(index)
 	if($scope.viewData[$scope.index].Answer_Type === "MultiPunch")
 	{
 		$scope.checkshow=true;
+
+		
 	}
 	if($scope.viewData[$scope.index].Answer_Type === "SinglePunch")
 	{
 		$scope.checkshow=false;
+		angular.forEach($scope.selectedItemResult,function(ans){
+		ans.res=false;
+			});
 	}
 	if($scope.index>=$scope.viewData.length-1)
 	{
 		$scope.nextshow=false;
+		$scope.previousButton=true;
+
 	}
-	
-
-
-
 }
+
 $scope.submit=function()
 {
-	
+	angular.forEach($scope.viewData,function(ques,index){
+		if($scope.storeData[index].resultRadio ===$scope.viewData[index].Answer_Selected_Radio)
+		{
+			$scope.count=$scope.count+1;
+		}
+	});
+	alert($scope.count);
 }
 $scope.previous=function(index)
 {
@@ -398,11 +413,32 @@ $scope.previous=function(index)
 	if($scope.viewData[$scope.index].Answer_Type === "MultiPunch")
 	{
 		$scope.checkshow=true;
+		
+		
 	}
 	if($scope.viewData[$scope.index].Answer_Type === "SinglePunch")
 	{
 		$scope.checkshow=false;
+		
+		
 	}
 
 }
+
+/****************************User-view-Selected-Checkbox-Result*****************************/
+
+
+
+	angular.forEach($scope.viewData,function(ques,index){
+		var checkboxData=[];
+		angular.forEach(ques.Answer_key,function(ans,ind){
+			checkboxData[ind]
+		});
+		$scope.storeData[index]={
+			qid:ques.Question_Id,
+			resultRadio:0,
+			resultCheck:
+		}
+	});
+
 }]); 

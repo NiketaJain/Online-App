@@ -31,17 +31,18 @@
     <b>Question: </b>{{viewData[index].Question}}<br><br>
     <b>Answer(s): </b>
     <div ng-repeat="view in viewData[index].Answer_key">
-       <div ng-show="checkshow"><input type="checkbox">{{view}}</div>
-       <div ng-hide="checkshow"><input type="radio">{{view}}</div>
+       <div ng-show="checkshow"><input type="checkbox" ng-model="selectedItemResult[$index].res" name="multi">{{view}}</div>
+       <div ng-hide="checkshow"><input type="radio" name="single" ng-model="storeData[index].resultRadio" value="{{$index+1}}" >{{view}}</div>
     </div>
     <br>
-  </div><br><br>
+  </div><br><br><hr>
   <div class="bottom">
-    <button ng-click="previous(index)">Previous</button>
+    <button ng-click="previous(index)" ng-disabled="previousButton">Previous</button>
     <button ng-click="next(index)" ng-show="nextshow">Next</button>
     <button ng-click="submit()" ng-hide="nextshow">Submit</button>
   </div>
- 
+<!--  <p>{{checkboxResult()}}</p> -->
+ <!-- <p>{{storeData|json}}</p> -->
 </form>
 </div>
 </body>
