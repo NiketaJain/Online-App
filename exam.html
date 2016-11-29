@@ -1,0 +1,49 @@
+<html ng-app="myApp">
+  <head>
+    <title>Online Quiz(User)</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+      <script src="main.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet"  href="style.css">
+  </head>
+<body ng-controller="myCtrl">
+ <!--  <div ng-include="'index.htm'"></div> -->
+  <div class="container"><br><br>
+  <!-- <div class="header navbar navbar-fixed-top">-->
+      <header>
+            <h2 class="oq-heading">Online Quiz</h2>
+      </header><br><br>
+  <!--  </div> -->
+    <div class="row">
+      <div ng-view class="col-sm-4 view-content">
+      </div>
+    </div>
+
+<!--*******************Online Quiz Form*********************-->     
+<form name="Form2">
+  <div class="userview"><br>
+    <b>QuestionId: </b>{{index+1}}<br><br>
+    <b>Question: </b>{{viewData[index].Question}}<br><br>
+    <b>Answer(s): </b>
+    <div ng-repeat="view in viewData[index].Answer_key">
+       <div ng-show="checkshow"><input type="checkbox">{{view}}</div>
+       <div ng-hide="checkshow"><input type="radio">{{view}}</div>
+    </div>
+    <br>
+  </div><br><br>
+  <div class="bottom">
+    <button ng-click="previous(index)">Previous</button>
+    <button ng-click="next(index)" ng-show="nextshow">Next</button>
+    <button ng-click="submit()" ng-hide="nextshow">Submit</button>
+  </div>
+ 
+</form>
+</div>
+</body>
+</html>
+       

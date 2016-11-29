@@ -10,6 +10,7 @@ app.controller('myCtrl',['$scope','$localStorage',function($scope, $localStorage
 		Question_list:[]
 		
 	});
+	$scope.indexvalue=0;
 	$scope.listdata={};
 	$scope.Question_list=[];
 	$scope.answerType='MultiPunch';
@@ -28,8 +29,8 @@ app.controller('myCtrl',['$scope','$localStorage',function($scope, $localStorage
 	$scope.cancelcreate=true;
 	$scope.deleteDisabled=false;
 	$scope.editDisabled=false;
-
-		
+	$scope.nextshow=true;
+	// $scope.checkshow=true;	
 	
 
 
@@ -360,8 +361,48 @@ $scope.createNewQ=function()
 	}
 }
 
-}]);
+
+
+/*****************************User-View************************/
+$scope.viewData=$localStorage.Question_list;
+$scope.index=0;
+
+$scope.next=function(index)
+{
+	$scope.nextshow=true;
+	$scope.index=index<$scope.viewData.length-1?index+1:$scope.viewData.length-1;
+	if($scope.viewData[$scope.index].Answer_Type === "MultiPunch")
+	{
+		$scope.checkshow=true;
+	}
+	if($scope.viewData[$scope.index].Answer_Type === "SinglePunch")
+	{
+		$scope.checkshow=false;
+	}
+	if($scope.index>=$scope.viewData.length-1)
+	{
+		$scope.nextshow=false;
+	}
+	
 
 
 
- 
+}
+$scope.submit=function()
+{
+	
+}
+$scope.previous=function(index)
+{
+	$scope.index=index>0?index-1:0;
+	if($scope.viewData[$scope.index].Answer_Type === "MultiPunch")
+	{
+		$scope.checkshow=true;
+	}
+	if($scope.viewData[$scope.index].Answer_Type === "SinglePunch")
+	{
+		$scope.checkshow=false;
+	}
+
+}
+}]); 
