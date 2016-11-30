@@ -97,8 +97,8 @@
                 <button ng-click="updateList(qid)" ng-hide="updatebutton" ng-disabled="myForm.ques.$invalid || (products.length<2)||(myForm.result.$invalid && storeResult()<1) ">Update</button>
     </form>
 </div><br>
-<!--<p>{{Question_list|json}}<p>
--->
+ <!-- <p>{{$storage.Question_list|json}}<p> -->
+
 <!--***************************Display Question-List in Table Format**********************-->
 <div ng-show="$storage.Question_list.length>0">
   <h4>Question List</h4>

@@ -31,7 +31,7 @@
     <b>Question: </b>{{viewData[index].Question}}<br><br>
     <b>Answer(s): </b>
     <div ng-repeat="view in viewData[index].Answer_key">
-       <div ng-show="checkshow"><input type="checkbox" ng-model="selectedItemResult[$index].res" name="multi">{{view}}</div>
+       <div ng-show="checkshow"><input type="checkbox" ng-model="storeData[index].resultCheck[$index].res" name="multi">{{view}}</div>
        <div ng-hide="checkshow"><input type="radio" name="single" ng-model="storeData[index].resultRadio" value="{{$index+1}}" >{{view}}</div>
     </div>
     <br>
@@ -43,6 +43,7 @@
   </div>
 <!--  <p>{{checkboxResult()}}</p> -->
  <!-- <p>{{storeData|json}}</p> -->
+ <!-- <p>{{$storage.Question_list|json}}<p> -->
 </form>
 </div>
 </body>

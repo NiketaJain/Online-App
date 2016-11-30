@@ -366,6 +366,7 @@ $scope.createNewQ=function()
 
 
 /*****************************User-View************************/
+
 $scope.viewData=$localStorage.Question_list;
 $scope.index=0;
 $scope.count=0;
@@ -400,12 +401,31 @@ $scope.next=function(index)
 $scope.submit=function()
 {
 	angular.forEach($scope.viewData,function(ques,index){
-		if($scope.storeData[index].resultRadio ===$scope.viewData[index].Answer_Selected_Radio)
+		if(ques.Answer_Type === "SinglePunch")
 		{
-			$scope.count=$scope.count+1;
+			if($scope.storeData[index].resultRadio ===ques.Answer_Selected_Radio)
+			{
+				$scope.count=$scope.count+1;
+			}
 		}
+		if(ques.Answer_Type === "MultiPunch")
+		{
+			var keyCount=0;
+			angular.forEach(ques.resultKey,function(ans,ind)
+			{
+				if(ans.res === $scope.storeData[index].resultCheck[ind].res)
+				{
+					keyCount++;
+				}
+			});
+			if(keyCount===ques.resultKey.length)
+			{
+				$scope.count=$scope.count+1;
+			}
+		}
+
 	});
-	alert($scope.count);
+	alert("Your Score is\n\n"+$scope.count+"/"+$scope.viewData.length);
 }
 $scope.previous=function(index)
 {
@@ -430,15 +450,22 @@ $scope.previous=function(index)
 
 
 	angular.forEach($scope.viewData,function(ques,index){
+
 		var checkboxData=[];
 		angular.forEach(ques.Answer_key,function(ans,ind){
-			checkboxData[ind]
-		});
+		checkboxData[ind]={
+
+			res:false
+		}
+		
+		 });
+			 
 		$scope.storeData[index]={
 			qid:ques.Question_Id,
 			resultRadio:0,
-			resultCheck:
+			resultCheck:checkboxData
 		}
 	});
 
 }]); 
+ 
